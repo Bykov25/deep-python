@@ -9,7 +9,7 @@ class Cash:
         self.currency = currency
 
     def __add__(self, other):
-        if other.currency:
+        if other.currency and self.currency:
             result = self.count + self.__operation(other)
         else:
             result = self.count + other.count
