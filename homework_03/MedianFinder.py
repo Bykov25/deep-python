@@ -36,4 +36,4 @@ class MedianFinder:
             right = size // 2
             return (self.lst[left] + self.lst[right]) / 2
         else:
-            return sum(self.lst) / size
+            return self.lst[size // 2]

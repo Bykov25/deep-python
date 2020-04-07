@@ -20,10 +20,12 @@ class MaxHeap:
 
     def pop(self) -> int:
         size = len(self.heap)
+        if size == 0:
+            return "Empty heap"
         max_val = self.heap[0]
         self.heap[0], self.heap[size - 1] = self.heap[size - 1], self.heap[0]
         del self.heap[size - 1]
-        self.heapify(self.heap[0])
+        self.heapify(self.heap)
         return max_val
 
     def heapify(self, iterable: List[int]) -> None:
