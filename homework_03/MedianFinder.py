@@ -31,6 +31,8 @@ class MedianFinder:
 
     def findMedian(self) -> float:
         size = len(self.lst)
+        if size == 0:
+            return "Empty list"
         if size % 2 == 0:
             left = size // 2 - 1
             right = size // 2
