@@ -1,10 +1,5 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Mar 29 19:09:44 2020
-
-@author: HOME
-"""
-
 
 import sqlite3
 import datetime
@@ -189,13 +184,3 @@ class TimeField(Column):
             obj.__dict__[self.name] = str(val)
         else:
             raise TypeError
-        
-
-
-
-#class Data(Base):
-#    id_ = IntegerField()
-#    name = StringField(max_len=10)
-#    cost = FloatField()
-#   date = DateTimeField()
-#    tm = TimeField()
