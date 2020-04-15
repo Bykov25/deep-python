@@ -23,6 +23,13 @@ def test_3():
     assert a + b == 66.44
 
 
+def test_4():
+    a = Cash(5)
+    b = Cash(10, 'USD')
+    assert a + b == 15
+    assert b + a == 15
+
+
 def test_str():
     a = Cash(5, 'USD')
     assert a.__str__() == '5 USD'
