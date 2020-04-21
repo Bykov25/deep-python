@@ -1,0 +1,33 @@
+[2020-04-21 21:20:59,436] - ERROR - multiply([1, 'a', 3]) -> a not a number
+[2020-04-21 21:20:59,436] - ERROR - multiply([]) -> function argument - Empty list
+[2020-04-21 21:20:59,451] - INFO - The function is called with the following argument: [1, 2, 3, 4]
+Prefix list: [1, 1, 2, 6, 24]
+Suffix list: [1, 4, 12, 24, 24]
+result list: [24, 12, 8, 6]
+[2020-04-21 21:20:59,451] - INFO - The function is called with the following argument: [8, 1, 4, 5, 9]
+Prefix list: [1, 8, 8, 32, 160, 1440]
+Suffix list: [1, 9, 45, 180, 180, 1440]
+result list: [180, 1440, 360, 288, 160]
+[2020-04-21 21:20:59,467] - ERROR - multiply([[11], [1], [1, 2, 3]]) -> [11] not a number
+[2020-04-21 21:20:59,467] - INFO - The function is called with the following argument: [-1, 5, 5, -3, 2, 8]
+Prefix list: [1, -1, -5, -25, 75, 150, 1200]
+Suffix list: [1, 8, 16, -48, -240, -1200, 1200]
+result list: [-1200, 240, 240, -400, 600, 150]
+[2020-04-21 21:20:59,482] - INFO - The function is called with the following argument: [10, 18]
+Prefix list: [1, 10, 180]
+Suffix list: [1, 18, 180]
+result list: [18, 10]
+[2020-04-21 21:20:59,498] - ERROR - multiply([-1]) -> List consists of one element
+[2020-04-21 21:20:59,498] - ERROR - multiply(123) -> Function argument is not a list
+[2020-04-21 21:21:00,653] - INFO - The function is called with the following argument: [-2, 5, -3, 1, 4, 0]
+Prefix list: [1, -2, -10, 30, 30, 120, 0]
+Suffix list: [1, 0, 0, 0, 0, 0, 0]
+result list: [0, 0, 0, 0, 0, 120]
+[2020-04-21 21:21:00,691] - INFO - The function is called with the following argument: [4, 5]
+Prefix list: [1, 4, 20]
+Suffix list: [1, 5, 20]
+result list: [5, 4]
+[2020-04-21 21:21:00,726] - INFO - The function is called with the following argument: [2, 0, 8]
+Prefix list: [1, 2, 0, 0]
+Suffix list: [1, 8, 0, 0]
+result list: [0, 16, 0]
