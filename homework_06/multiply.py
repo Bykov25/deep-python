@@ -46,20 +46,17 @@ def arg_validation(lst):
 def multiply(lst):
     if not arg_validation(lst):
         return
-    pref = []
     suff = []
     result = []
-    pref.append(1)
-    for i in range(len(lst)):
-        item = pref[i] * lst[i]
-        pref.append(item)
     suff.append(1)
     for i in range(len(lst)):
         item = suff[i] * lst[len(lst) - i - 1]
         suff.append(item)
+    tmp = 1
     for i in range(len(lst)):
-        item = pref[i] * suff[len(lst) - i - 1]
+        item = tmp * suff[len(lst) - i - 1]
         result.append(item)
+        tmp = tmp * lst[i]
     logger.info((f"The function is called with the following argument: {lst}\n") + 
-                (f"Prefix list: {pref}\nSuffix list: {suff}\nresult list: {result}"))
+               (f"Suffix list: {suff}\nresult list: {result}"))
     return result
