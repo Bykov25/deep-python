@@ -111,5 +111,3 @@ class Matrix:
         other_tr = list(zip(*other.matrix_representation))
         representation = [[sum(i * j for i, j in zip(row_self, col_other)) for col_other in other_tr] for row_self in self.matrix_representation]
         return Matrix(representation)
-        
- 
