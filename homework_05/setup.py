@@ -8,7 +8,8 @@ def main():
     setup(name="matrix",
           version="1.0.0",
           description="Matmul C extension",
-          ext_modules=[Extension("matrix", ["matmul_ext.c"])])
+          ext_modules=[Extension("matrix", ["test.c"])])
 
 if __name__ == "__main__":
     main()
+    
