@@ -92,14 +92,10 @@ class Matrix:
             raise ValueError
     
     def transpose(self):
-        strings = self.shape[0]
-        cols = self.shape[1]
-        zip_m = zip(*self.matrix_representation)
+        zip_m = list(zip(*self.matrix_representation))
         representation = []
-        for i, j in zip_m:
-            representation.append(i)
-            representation.append(j)
-        representation = [representation[i * strings:i * strings + strings] for i in range(cols)]
+        for row in zip_m:
+            representation.append(list(row))
         return Matrix(representation)
     
     def __contains__(self, item):
@@ -111,3 +107,8 @@ class Matrix:
         other_tr = list(zip(*other.matrix_representation))
         representation = [[sum(i * j for i, j in zip(row_self, col_other)) for col_other in other_tr] for row_self in self.matrix_representation]
         return Matrix(representation)
+    
+    def __eq__(self, other):
+        if self.matrix_representation == other.matrix_representation:
+            return True
+        return False
