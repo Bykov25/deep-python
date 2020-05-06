@@ -107,13 +107,8 @@ class Matrix:
         other_tr = list(zip(*other.matrix_representation))
         representation = [[sum(i * j for i, j in zip(row_self, col_other)) for col_other in other_tr] for row_self in self.matrix_representation]
         return Matrix(representation)
-<<<<<<< HEAD
     
     def __eq__(self, other):
         if self.matrix_representation == other.matrix_representation:
             return True
         return False
-=======
-        
- 
->>>>>>> parent of b57fe54... add extension
