@@ -43,26 +43,38 @@ def valid_tags(item):
         return False
     return True
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-    sock.bind(('', 9090))
-    sock.listen(10)
+def conn_client(sock):
     conn, addr = sock.accept()
     conn.settimeout(30)
-    with conn:
-        while True:
-            try:
-                url = conn.recv(1024)
-                if not url:
-                    break
-                req = requests.get(url.decode('utf-8'), timeout=3)
-                text = get_text(req)
-                data = get_valid_words(text.split())
-                response = search_most_common(data)
-                conn.send(response.encode('utf-8'))
-            except socket.timeout:
-                print("Close connection by timeout")
+    return conn
+
+def create_response(conn):
+    while True:
+        try:
+            url = conn.recv(1024)
+            if not url:
                 break
-            except requests.exceptions.ConnectionError:
-                conn.send("ConnectionError".encode('utf-8'))
-            except requests.exceptions.MissingSchema:
-                conn.send("Invalid URL".encode('utf-8'))
+            req = requests.get(url.decode('utf-8'), timeout=3)
+            text = get_text(req)
+            data = get_valid_words(text.split())
+            response = search_most_common(data)
+            conn.send(response.encode('utf-8'))
+        except socket.timeout:
+            print("Close connection by timeout")
+            break
+        except requests.exceptions.ConnectionError:
+            conn.send("ConnectionError".encode('utf-8'))
+        except requests.exceptions.MissingSchema:
+            conn.send("Invalid URL".encode('utf-8'))
+
+def run_server(host, port):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.bind((host, port))
+        sock.listen(10)
+        while True:
+            conn = conn_client(sock)
+            with conn:
+                create_response(conn)
+
+if __name__ == "__main__":
+    run_server('', 9090)
