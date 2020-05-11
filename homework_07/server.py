@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
+from nltk.corpus import stopwords
 from bs4.element import Comment
+from bs4 import BeautifulSoup
 from collections import Counter
 import requests
 import socket
 import json
+import nltk
 import re
 
 
@@ -14,17 +16,12 @@ IGNORED_TAGS = ['head', 'style', 'script', 'meta', 'title', '[document]']
 PUNC_CHARS = ['.', ',', ':', ';', '!', '?', '(', ')']
 
 def get_valid_words(word_list):
-    word_list = list(filter(lambda w: False if len(w) < 3 else True, word_list))
-    i = 0
-    for word in word_list:
-        if word[-1] in PUNC_CHARS:
-            word_list[i] = word[:-1]
-            word = word_list[i]
-        if word[0] in PUNC_CHARS:
-            word_list[i] = word[1:]
-        i += 1
-    r = re.compile("[а-яА-Яa-zA-Z]{3,}")
+    r = re.compile("[а-яА-Яa-zA-Z]")
     word_list = list(filter(r.match, word_list))
+    stop_words_rus = stopwords.words('russian')
+    stop_words_eng = stopwords.words('english')
+    stop_words = stop_words_rus + stop_words_eng
+    word_list = list(filter(lambda w: w.lower() not in stop_words, word_list))
     return word_list
 
 def get_text(req):
@@ -46,9 +43,9 @@ def valid_tags(item):
 def conn_client(sock):
     conn, addr = sock.accept()
     conn.settimeout(30)
-    return conn
+    return conn, addr
 
-def create_response(conn):
+def create_response(conn, addr):
     while True:
         try:
             url = conn.recv(1024)
@@ -56,11 +53,12 @@ def create_response(conn):
                 break
             req = requests.get(url.decode('utf-8'), timeout=3)
             text = get_text(req)
-            data = get_valid_words(text.split())
+            text = nltk.word_tokenize(text)
+            data = get_valid_words(text)
             response = search_most_common(data)
             conn.send(response.encode('utf-8'))
         except socket.timeout:
-            print("Close connection by timeout")
+            print("Close connection by timeout from addr: ", addr)
             break
         except requests.exceptions.ConnectionError:
             conn.send("ConnectionError".encode('utf-8'))
@@ -72,9 +70,9 @@ def run_server(host, port):
         sock.bind((host, port))
         sock.listen(10)
         while True:
-            conn = conn_client(sock)
+            conn, addr = conn_client(sock)
             with conn:
-                create_response(conn)
+                create_response(conn, addr)
 
 if __name__ == "__main__":
     run_server('', 9090)
