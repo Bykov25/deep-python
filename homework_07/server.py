@@ -13,7 +13,6 @@ import re
 
 
 IGNORED_TAGS = ['head', 'style', 'script', 'meta', 'title', '[document]']
-PUNC_CHARS = ['.', ',', ':', ';', '!', '?', '(', ')']
 
 def get_valid_words(word_list):
     r = re.compile("[а-яА-Яa-zA-Z]")
