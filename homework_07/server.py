@@ -55,14 +55,14 @@ def create_response(conn, addr):
             text = nltk.word_tokenize(text)
             data = get_valid_words(text)
             response = search_most_common(data)
-            conn.send(response.encode('utf-8'))
+            conn.sendall(response.encode('utf-8'))
         except socket.timeout:
             print("Close connection by timeout from addr: ", addr)
             break
         except requests.exceptions.ConnectionError:
-            conn.send("ConnectionError".encode('utf-8'))
+            conn.sendall("ConnectionError".encode('utf-8'))
         except requests.exceptions.MissingSchema:
-            conn.send("Invalid URL".encode('utf-8'))
+            conn.sendall("Invalid URL".encode('utf-8'))
 
 def run_server(host, port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
