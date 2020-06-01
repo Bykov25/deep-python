@@ -29,15 +29,16 @@ class Theater:
         else:
             return "Place is free"
 
-def main():
-    if len(sys.argv) == 4:
-        row = sys.argv[2]
-        place = sys.argv[3]
-        print(theater.check_place(row, place))
+def check():
+    row = sys.argv[2]
+    place = sys.argv[3]
+    return theater.check_place(row, place)
 
 if __name__ == "__main__":
     filename = sys.argv[1]
     theater = Theater(filename)
     free_places = theater.num_free_places()
     print("Number of free places:", free_places)
-    main()
+    if len(sys.argv) == 4:
+        is_free = check()
+        print(is_free)
